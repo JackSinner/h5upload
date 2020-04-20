@@ -35,7 +35,7 @@ class h5uploadServiceProvider extends ServiceProvider
         Admin::booting(function () {
             Admin::js('vendor/laravel-admin-ext/h5upload/js/lib/md5/md5.js?v=' . rand(1, 100));
             Admin::js('vendor/laravel-admin-ext/h5upload/js/h5upload.js?v=' . rand(1, 100));
-            Admin::js('vendor/laravel-admin-ext/h5upload/ali-oss-sdk/ali-oss-sdk-mini.js');
+            Admin::js('vendor/laravel-admin-ext/h5upload/js/ali-oss-sdk/ali-oss-sdk-mini.js');
             Admin::css('vendor/laravel-admin-ext/h5upload/css/h5upload.css');
         });
         $this->app->booted(function () {
