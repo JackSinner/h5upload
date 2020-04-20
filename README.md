@@ -1,25 +1,18 @@
 #H5直传阿里云oss扩展
 
-###1.修改composer.json文件的repositories 加入
+###1.使用composer安装monsteryuan/h5upload扩展
 
 ````
- "h5upload": {
-   "type": "path",
-   "url": "app/Admin/Extensions/laravel-admin-ext/h5upload"
- }
+composer require monsteryuan/h5upload -vvvv
 ````
 
-###2.使用composer安装
-
-``composer require laravel-admin-ext/h5upload -vvvv``
-
-###3.导出资源文件
+###2.导出资源文件
 
 `windows`:`php artisan vendor:publish --provider=Encore\h5upload\h5uploadServiceProvider`
 
 `mac|linux`:`php artisan vendor:publish --provider=Encore\\h5upload\\h5uploadServiceProvider`
 
-###4.在`app/Admin/bootstrap.php`添加代码
+###3.在`app/Admin/bootstrap.php`添加代码
 
 ```
 Encore\Admin\Form::extend('h5upload', \Encore\h5upload\h5uploadFiled::class);
@@ -36,4 +29,9 @@ $form->h5upload('url','视频');
 ```
 可选扩展:video视频类型文件 file所有类型的文件 mp3音频文件 image图片文件
 $form->h5upload('url','视频')->setExpansion('video');
+```
+
+###tips
+```
+如果有什么问题可以联系email:643145444@qq.com,作者会在时间充足的情况下更新扩展
 ```
