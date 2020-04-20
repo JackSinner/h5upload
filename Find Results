@@ -1,0 +1,139 @@
+
+
+Searching 11422 files for "h5upload"
+
+/Applications/MAMP/htdocs/future/future-server/app/Admin/Extensions/laravel-admin-ext/h5upload/README.md:
+    4      "h5upload": {
+    5        "type": "path",
+    6:       "url": "app/Admin/Extensions/laravel-admin-ext/h5upload"
+    7      }
+    8  ````
+    9  ###2.使用composer安装
+   10: ``composer require laravel-admin-ext/h5upload -vvvv``
+   11  ###3.导出资源文件
+   12  `php artisan vendor:publish --provider=Encore\h5upload\h5uploadServiceProvider`
+
+/Applications/MAMP/htdocs/future/future-server/app/Admin/Extensions/laravel-admin-ext/h5upload/routes/web.php:
+    3  use Encore\h5upload\Http\Controllers\h5uploadController;
+    4  
+    5: Route::get('h5upload', h5uploadController::class.'@index');
+
+/Applications/MAMP/htdocs/future/future-server/app/Admin/Extensions/laravel-admin-ext/h5upload/src/h5upload.php:
+    7  class h5upload extends Extension
+    8  {
+    9:     public $name = 'h5upload';
+   10  
+   11      public $views = __DIR__.'/../resources/views';
+   ..
+   15      public $menu = [
+   16          'title' => 'H5Upload',
+   17:         'path'  => 'h5upload',
+   18          'icon'  => 'fa-gears',
+   19      ];
+
+/Applications/MAMP/htdocs/future/future-server/app/Admin/Extensions/laravel-admin-ext/h5upload/src/h5uploadFiled.php:
+    7  class h5uploadFiled extends Field
+    8  {
+    9:     public $view = 'h5upload::index';
+   10  
+   11      function render()
+
+/Applications/MAMP/htdocs/future/future-server/app/Admin/Extensions/laravel-admin-ext/h5upload/src/h5uploadServiceProvider.php:
+   18  
+   19          if ($views = $extension->views()) {
+   20:             $this->loadViewsFrom($views, 'h5upload');
+   21          }
+   22  
+   23          if ($this->app->runningInConsole() && $assets = $extension->assets()) {
+   24              $this->publishes(
+   25:                 [$assets => public_path('vendor/laravel-admin-ext/h5upload')],
+   26:                 'h5upload'
+   27              );
+   28          }
+   29          Admin::booting(function () {
+   30:             Admin::js('vendor/laravel-admin-ext/h5upload/js/h5upload.js?v='.rand(1,100));
+   31              Admin::js('vendor/ali-oss-sdk/ali-oss-sdk-mini.js');
+   32:             Admin::css('vendor/laravel-admin-ext/h5upload/css/h5upload.css');
+   33          });
+   34          $this->app->booted(function () {
+
+/Applications/MAMP/htdocs/future/future-server/app/Admin/Extensions/laravel-admin-ext/h5upload/src/Http/Controllers/h5uploadController.php:
+   13              ->title('Title')
+   14              ->description('Description')
+   15:             ->body(view('h5upload::index'));
+   16      }
+   17  }
+
+/Applications/MAMP/htdocs/future/future-server/bootstrap/cache/packages.php:
+   72      ),
+   73    ),
+   74:   'laravel-admin-ext/h5upload' => 
+   75    array (
+   76      'providers' => 
+
+/Applications/MAMP/htdocs/future/future-server/composer.json:
+   89      "h5upload": {
+   90        "type": "path",
+   91:       "url": "app/Admin/Extensions/laravel-admin-ext/h5upload"
+   92      }
+   93    }
+
+/Applications/MAMP/htdocs/future/future-server/deploy.php:
+   88      // run('sudo chown -R www:www {{release_path}}/storage/logs');
+   89      run('sudo chmod -R 777 {{release_path}}/storage/logs');
+   90:     run('sudo rm -rf {{release_path}}/vendor/laravel-admin-ext/h5upload');
+   91  });
+   92  after('deploy:symlink', 'change:storage');
+
+/Applications/MAMP/htdocs/future/future-server/vendor/composer/autoload_classmap.php:
+  849      'Encore\\WangEditor\\WangEditor' => $vendorDir . '/laravel-admin-ext/wang-editor/src/WangEditor.php',
+  850      'Encore\\WangEditor\\WangEditorServiceProvider' => $vendorDir . '/laravel-admin-ext/wang-editor/src/WangEditorServiceProvider.php',
+  851:     'Encore\\h5upload\\Http\\Controllers\\h5uploadController' => $vendorDir . '/laravel-admin-ext/h5upload/src/Http/Controllers/h5uploadController.php',
+  852:     'Encore\\h5upload\\h5upload' => $vendorDir . '/laravel-admin-ext/h5upload/src/h5upload.php',
+  853:     'Encore\\h5upload\\h5uploadFiled' => $vendorDir . '/laravel-admin-ext/h5upload/src/h5uploadFiled.php',
+  854:     'Encore\\h5upload\\h5uploadServiceProvider' => $vendorDir . '/laravel-admin-ext/h5upload/src/h5uploadServiceProvider.php',
+  855      'Faker\\Calculator\\Iban' => $vendorDir . '/fzaninotto/faker/src/Faker/Calculator/Iban.php',
+  856      'Faker\\Calculator\\Inn' => $vendorDir . '/fzaninotto/faker/src/Faker/Calculator/Inn.php',
+
+/Applications/MAMP/htdocs/future/future-server/vendor/composer/autoload_psr4.php:
+   81      'Fideloper\\Proxy\\' => array($vendorDir . '/fideloper/proxy/src'),
+   82      'Faker\\' => array($vendorDir . '/fzaninotto/faker/src/Faker'),
+   83:     'Encore\\h5upload\\' => array($vendorDir . '/laravel-admin-ext/h5upload/src'),
+   84      'Encore\\WangEditor\\' => array($vendorDir . '/laravel-admin-ext/wang-editor/src'),
+   85      'Encore\\Admin\\Scheduling\\' => array($vendorDir . '/laravel-admin-ext/scheduling/src'),
+
+/Applications/MAMP/htdocs/future/future-server/vendor/composer/autoload_static.php:
+  507          'Encore\\h5upload\\' => 
+  508          array (
+  509:             0 => __DIR__ . '/..' . '/laravel-admin-ext/h5upload/src',
+  510          ),
+  511          'Encore\\WangEditor\\' => 
+  ...
+ 1474          'Encore\\WangEditor\\WangEditor' => __DIR__ . '/..' . '/laravel-admin-ext/wang-editor/src/WangEditor.php',
+ 1475          'Encore\\WangEditor\\WangEditorServiceProvider' => __DIR__ . '/..' . '/laravel-admin-ext/wang-editor/src/WangEditorServiceProvider.php',
+ 1476:         'Encore\\h5upload\\Http\\Controllers\\h5uploadController' => __DIR__ . '/..' . '/laravel-admin-ext/h5upload/src/Http/Controllers/h5uploadController.php',
+ 1477:         'Encore\\h5upload\\h5upload' => __DIR__ . '/..' . '/laravel-admin-ext/h5upload/src/h5upload.php',
+ 1478:         'Encore\\h5upload\\h5uploadFiled' => __DIR__ . '/..' . '/laravel-admin-ext/h5upload/src/h5uploadFiled.php',
+ 1479:         'Encore\\h5upload\\h5uploadServiceProvider' => __DIR__ . '/..' . '/laravel-admin-ext/h5upload/src/h5uploadServiceProvider.php',
+ 1480          'Faker\\Calculator\\Iban' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Calculator/Iban.php',
+ 1481          'Faker\\Calculator\\Inn' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Calculator/Inn.php',
+
+/Applications/MAMP/htdocs/future/future-server/vendor/composer/installed.json:
+ 1988      },
+ 1989      {
+ 1990:         "name": "laravel-admin-ext/h5upload",
+ 1991          "version": "1.0.0",
+ 1992          "version_normalized": "1.0.0.0",
+ 1993          "dist": {
+ 1994              "type": "path",
+ 1995:             "url": "app/Admin/Extensions/laravel-admin-ext/h5upload",
+ 1996              "reference": "864536f7b3ff0402a35a41afbf351b519548d7d7"
+ 1997          },
+ ....
+ 2027          ],
+ 2028          "description": "description...",
+ 2029:         "homepage": "https://github.com/laravel-admin-ext/h5upload",
+ 2030          "keywords": [
+ 2031              "extension",
+
+28 matches across 13 files
