@@ -3,7 +3,7 @@
 ###1.使用composer安装monsteryuan/h5upload扩展
 
 ````
-composer require monsteryuan/h5upload -vvvv
+composer require monsteryuan/h5upload 1.0.1.x-dev -vvvv
 ````
 
 ###2.导出资源文件
