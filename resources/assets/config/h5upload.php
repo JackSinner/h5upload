@@ -19,6 +19,31 @@ return [
         //域名
         'public_domain' => env('ALIYUN_OSS_PUBLIC_DOMAIN'),
         'private_domain' => env('ALIYUN_OSS_PRIVATE_DOMAIN'),
-        'domain' => env('ALIYUN_OSS_DOMAIN')
+        'domain' => env('ALIYUN_OSS_DOMAIN'),
+
+        'policy' => '{
+        "Statement": [
+            {
+                "Action": [
+                    "oss:GetBucketAcl",
+                    "oss:ListObjects"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                    "acs:oss:*:*:$bucket/*"
+                ]
+            },
+            {
+                "Action": [
+                    "oss:PutObject"
+                ],
+                "Effect": "Allow",
+                "Resource":[
+                    "acs:oss:*:*:$bucket/*"
+                ]
+            }
+        ],
+        "Version": "1"
+        }'
     ]
 ];

@@ -10,6 +10,7 @@ use Illuminate\Support\ServiceProvider;
 
 class h5uploadServiceProvider extends ServiceProvider
 {
+
     /**
      * {@inheritdoc}
      */
@@ -53,7 +54,7 @@ class h5uploadServiceProvider extends ServiceProvider
             $dev_map = [
                 'ali' => Aliyun::class
             ];
-            return new $dev_map[$type_dev]();
+            return new $dev_map[$type_dev]($type_dev);
         });
     }
 }

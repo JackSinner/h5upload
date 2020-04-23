@@ -3,7 +3,7 @@
 ###1.使用composer安装monsteryuan/h5upload扩展
 
 ````
-composer require monsteryuan/h5upload 1.0.1.x-dev -vvvv
+composer require monsteryuan/h5upload 1.0.2.x-dev -vvvv
 ````
 
 ###2.导出资源文件
@@ -35,3 +35,14 @@ $form->h5upload('url','视频')->setExpansion('video');
 ```
 如果有什么问题可以联系email:643145444@qq.com,作者会在时间充足的情况下更新扩展
 ```
+
+###有更好的点子
+
+###1.修改composer.json文件的repositories 加入
+
+````
+ "h5upload": {
+   "type": "path",
+   "url": "app/Admin/Extensions/laravel-admin-ext/h5upload"
+ }
+````

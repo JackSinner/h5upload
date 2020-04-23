@@ -1,37 +1,38 @@
 {
-  "name": "monsteryuan/h5upload",
-  "description": "这是一个laravel-admin异步的阿里云oss上传资源插件",
-  "type": "library",
-  "keywords": [
-    "laravel-admin",
-    "extension"
-  ],
-  "homepage": "https://github.com/laravel-admin-ext/h5upload",
-  "license": "MIT",
-  "version": "1.0.1",
-  "authors": [
-    {
-      "name": "MonsterYuan",
-      "email": "643145444@qq.com"
+    "name": "monsteryuan/h5upload",
+    "description": "这是一个laravel-admin异步的阿里云oss上传资源插件",
+    "type": "library",
+    "keywords": [
+        "laravel-admin",
+        "extension"
+    ],
+    "homepage": "https://github.com/laravel-admin-ext/h5upload",
+    "license": "MIT",
+    "version": "1.0.2",
+    "authors": [
+        {
+            "name": "MonsterYuan",
+            "email": "643145444@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "alibabacloud/sdk": "1.8.245",
+        "encore/laravel-admin": "~1.7"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Encore\\h5upload\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Encore\\h5upload\\h5uploadServiceProvider"
+            ]
+        }
     }
-  ],
-  "require": {
-    "php": ">=7.0.0",
-    "encore/laravel-admin": "~1.7"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "~6.0"
-  },
-  "autoload": {
-    "psr-4": {
-      "Encore\\h5upload\\": "src/"
-    }
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "Encore\\h5upload\\h5uploadServiceProvider"
-      ]
-    }
-  }
 }
