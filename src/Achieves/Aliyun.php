@@ -5,8 +5,7 @@ namespace Encore\h5upload\Achieves;
 use AlibabaCloud\{
     Client\AlibabaCloud,
     Client\Exception\ClientException,
-    Client\Exception\ServerException,
-    Sts\Sts
+    Client\Exception\ServerException
 };
 use Encore\h5upload\{
     Interfaces\ThirdPartyUpload,
@@ -35,18 +34,27 @@ class Aliyun extends ThirdPartyUploadAbs implements ThirdPartyUpload
 
     function getSts()
     {
+        AlibabaCloud::accessKeyClient($this->config['access_key'], $this->config['access_secret'])
+            ->regionId($this->config['sts_region_id'])
+            ->verify(false)
+            ->asDefaultClient();
         try {
-            AlibabaCloud::accessKeyClient($this->config['access_key'], $this->config['access_secret'])->regionId($this->config['sts_region_id'])->asDefaultClient();
-            $response = Sts::v20150401()
-                ->assumeRole()//指定角色ARN
-                ->withRoleArn($this->config['sts_ram'])
-                //RoleSessionName即临时身份的会话名称，用于区分不同的临时身份
-                ->withRoleSessionName('h5upload')
-                //设置权限策略以进一步限制角色的权限
-                //以下权限策略表示拥有所有OSS的只读权限
-                ->withPolicy($this->config['policy'])
-                ->connectTimeout(60)
-                ->timeout(65)
+            $response = AlibabaCloud::rpc()
+                ->product('Sts')
+                ->scheme('https') // https | http
+                ->version('2015-04-01')
+                ->action('AssumeRole')
+                ->method('POST')
+                ->host('sts.aliyuncs.com')
+                ->verify(false)
+                ->options([
+                    'query' => [
+                        'RegionId' => $this->config['sts_region_id'],
+                        'RoleArn' => $this->config['sts_ram'],
+                        'RoleSessionName' => "test",
+                        'DurationSeconds' => "1000",
+                    ]
+                ])
                 ->request();
             if (!$response->isSuccess()) {
                 return $this->setErrorMessage('获取STS授权失败');
@@ -55,13 +63,15 @@ class Aliyun extends ThirdPartyUploadAbs implements ThirdPartyUpload
             return $this->setErrorMessage($clientException->getMessage());
         } catch (ServerException $serverException) {
             return $this->setErrorMessage($serverException->getMessage() . $serverException->getErrorCode() . $serverException->getRequestId() . $serverException->getErrorMessage());
+        } catch (\Exception $exception) {
+            return $this->setErrorMessage($exception->getMessage());
         }
         $response = $response->toArray();
         return [
             'sts' => [
                 'SecurityToken' => $response['Credentials']['SecurityToken'],
-                'AccessKeySecret' => $response['Credentials']['AccessKeyId'],
-                'AccessKeyId' => $response['Credentials']['AccessKeySecret']
+                'AccessKeySecret' => $response['Credentials']['AccessKeySecret'],
+                'AccessKeyId' => $response['Credentials']['AccessKeyId']
             ],
             'oss' => [
                 'endpoint' => $this->config['endpoint'],

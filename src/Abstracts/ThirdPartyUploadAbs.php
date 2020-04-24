@@ -6,6 +6,9 @@ abstract class ThirdPartyUploadAbs
 {
     protected $error_message = '系统错误';
 
+
+    public $config;
+
     public function __construct($type_dev)
     {
         $this->config = config('h5upload.' . strtolower($type_dev));

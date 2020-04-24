@@ -31,14 +31,26 @@ $form->h5upload('url','视频');
 $form->h5upload('url','视频')->setExpansion('video');
 ```
 
+###关于.env配置文件
+```
+请打开网站https://help.aliyun.com/document_detail/100624.html?spm=a2c4g.11186623.2.10.316879b0jDJxFq#concept-xzh-nzk-2gb根据提升一步一步添加配置
+```
+
 ###tips
 ```
 如果有什么问题可以联系email:643145444@qq.com,作者会在时间充足的情况下更新扩展
 ```
 
-###有更好的点子
 
-###1.修改composer.json文件的repositories 加入
+
+
+#有更好的点子
+###1.复制文件
+``
+app/Admin/Extensions/laravel-admin-ext/h5upload
+``
+
+###2.修改项目composer.json文件的repositories 加入
 
 ````
  "h5upload": {
@@ -46,3 +58,9 @@ $form->h5upload('url','视频')->setExpansion('video');
    "url": "app/Admin/Extensions/laravel-admin-ext/h5upload"
  }
 ````
+
+###3.安装本地
+
+```
+composer require monsteryuan/h5upload -vvvv
+```

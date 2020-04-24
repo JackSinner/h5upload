@@ -25,21 +25,11 @@ return [
         "Statement": [
             {
                 "Action": [
-                    "oss:GetBucketAcl",
-                    "oss:ListObjects"
-                ],
-                "Effect": "Allow",
-                "Resource": [
-                    "acs:oss:*:*:$bucket/*"
-                ]
-            },
-            {
-                "Action": [
                     "oss:PutObject"
                 ],
                 "Effect": "Allow",
                 "Resource":[
-                    "acs:oss:*:*:$bucket/*"
+                    "acs:oss:*:*:$you_bucket/*"
                 ]
             }
         ],
