@@ -2,16 +2,12 @@
 
 namespace Encore\h5upload\Achieves;
 
-use AlibabaCloud\{
-    Client\AlibabaCloud,
-    Client\Exception\ClientException,
-    Client\Exception\ServerException,
-    Sts\Sts
-};
-use Encore\h5upload\{
-    Interfaces\ThirdPartyUpload,
-    Abstracts\ThirdPartyUploadAbs
-};
+use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Exception\ServerException;
+use AlibabaCloud\Sts\Sts;
+use Encore\h5upload\Interfaces\ThirdPartyUpload;
+use Encore\h5upload\Abstracts\ThirdPartyUploadAbs;
 
 class Aliyun extends ThirdPartyUploadAbs implements ThirdPartyUpload
 {
@@ -30,10 +26,10 @@ class Aliyun extends ThirdPartyUploadAbs implements ThirdPartyUpload
         'public_domain',
         'private_domain',
         'domain',
-        'policy'
+        'policy',
     ];
 
-    function getSts()
+    public function getSts()
     {
         try {
             AlibabaCloud::accessKeyClient($this->config['access_key'], $this->config['access_secret'])->regionId($this->config['sts_region_id'])->asDefaultClient();
@@ -54,34 +50,36 @@ class Aliyun extends ThirdPartyUploadAbs implements ThirdPartyUpload
         } catch (ClientException $clientException) {
             return $this->setErrorMessage($clientException->getMessage());
         } catch (ServerException $serverException) {
-            return $this->setErrorMessage($serverException->getMessage() . $serverException->getErrorCode() . $serverException->getRequestId() . $serverException->getErrorMessage());
+            return $this->setErrorMessage($serverException->getMessage().$serverException->getErrorCode().$serverException->getRequestId().$serverException->getErrorMessage());
         }
         $response = $response->toArray();
+
         return [
             'sts' => [
                 'SecurityToken' => $response['Credentials']['SecurityToken'],
-                'AccessKeySecret' => $response['Credentials']['AccessKeyId'],
-                'AccessKeyId' => $response['Credentials']['AccessKeySecret']
+                'AccessKeyId' => $response['Credentials']['AccessKeyId'],
+                'AccessKeySecret' => $response['Credentials']['AccessKeySecret'],
             ],
             'oss' => [
                 'endpoint' => $this->config['endpoint'],
                 'bucket' => $this->config['bucket'],
                 'sts_endpoint' => $this->config['sts_endpoint'],
-                'sts_region_id' => $this->config['sts_region_id']
-            ]
+                'sts_region_id' => $this->config['sts_region_id'],
+            ],
         ];
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
-    function checkConfig(array $config)
+    public function checkConfig(array $config)
     {
         foreach ($this->verifyConfig as $k) {
             if (!isset($config[$k]) || empty($config[$k])) {
                 return $this->setErrorMessage("请检查配置项,配置项{$k}不正确");
             }
         }
+
         return true;
     }
 }
