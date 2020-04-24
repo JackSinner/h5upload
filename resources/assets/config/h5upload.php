@@ -1,6 +1,7 @@
 <?php
+
 return [
-    'type_dev' => 'ali',//上传驱动
+    'type_dev' => 'ali', //上传驱动
     'ali' => [
         // 端口设置
         'endpoint' => env('ALIYUN_OSS_ENDPOINT'),
@@ -21,29 +22,20 @@ return [
         'private_domain' => env('ALIYUN_OSS_PRIVATE_DOMAIN'),
         'domain' => env('ALIYUN_OSS_DOMAIN'),
 
+        // 移除非必需权限，只保留 Put 文件上传功能，此处可根据需要自行修改
         'policy' => '{
         "Statement": [
-            {
-                "Action": [
-                    "oss:GetBucketAcl",
-                    "oss:ListObjects"
-                ],
-                "Effect": "Allow",
-                "Resource": [
-                    "acs:oss:*:*:$bucket/*"
-                ]
-            },
             {
                 "Action": [
                     "oss:PutObject"
                 ],
                 "Effect": "Allow",
                 "Resource":[
-                    "acs:oss:*:*:$bucket/*"
+                    "acs:oss:*:*:'.env('ALIYUN_OSS_BUCKET').'/*"
                 ]
             }
         ],
         "Version": "1"
-        }'
-    ]
+        }',
+    ],
 ];
