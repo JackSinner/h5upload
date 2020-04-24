@@ -20,7 +20,7 @@ return [
         'public_domain' => env('ALIYUN_OSS_PUBLIC_DOMAIN'),
         'private_domain' => env('ALIYUN_OSS_PRIVATE_DOMAIN'),
         'domain' => env('ALIYUN_OSS_DOMAIN'),
-
+        // 移除非必需权限，只保留 Put 文件上传功能，此处可根据需要自行修改
         'policy' => '{
         "Statement": [
             {
@@ -29,7 +29,7 @@ return [
                 ],
                 "Effect": "Allow",
                 "Resource":[
-                    "acs:oss:*:*:$you_bucket/*"
+                    "acs:oss:*:*:'.env('ALIYUN_OSS_BUCKET').'/*"
                 ]
             }
         ],

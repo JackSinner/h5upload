@@ -17,7 +17,7 @@ function file_click() {
 
 function check_file() {
   let file_tag = file_resource.name.split('.');
-  file_ext = file_tag[1].toLowerCase();
+  file_ext = file_tag.pop().toLowerCase(); // 修复文件名包含.导致的文件类型获取错误
   // if (file_tag === 'undefined' || !['mp4', 'avi'].includes(file_ext)) {
   //   alert('文件格式不正确');
   //   return false;
