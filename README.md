@@ -37,6 +37,11 @@ $form->h5upload('url','视频');
 $form->h5upload('url','视频')->setExpansion('video');
 ```
 
+### 设置多文件上传
+```
+$form->h5upload('url','h5upload')->setMultiple();
+```
+
 ### 关于.env配置文件
 ```
 请打开网站https://help.aliyun.com/document_detail/100624.html?spm=a2c4g.11186623.2.10.316879b0jDJxFq#concept-xzh-nzk-2gb根据提升一步一步添加配置

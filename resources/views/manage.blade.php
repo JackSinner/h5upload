@@ -16,7 +16,7 @@ function test($t, $l = 0)
     .tree {
         overflow-y: auto;
         height: 51rem;
-        width: 20rem;
+        width: 16%;
         background-color: white;
         padding: 1rem 1rem;
         display: inline-block;

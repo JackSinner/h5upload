@@ -39,4 +39,10 @@ class h5uploadFiled extends Field
         return $this;
     }
 
+    function setMultiple()
+    {
+        $this->attribute('multiple', 'multiple');
+        return $this;
+    }
+
 }
