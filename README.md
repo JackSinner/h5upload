@@ -6,13 +6,19 @@
 composer require monsteryuan/h5upload 1.0.3.x-dev -vvvv
 ````
 
-### 2.导出资源文件
+### 2.迁移数据库文件
+
+````
+使用命令行php artisan admin:install 迁移数据库文件
+````
+
+### 3.导出资源文件
 
 `windows`:`php artisan vendor:publish --provider=Encore\h5upload\h5uploadServiceProvider`
 
 `mac|linux`:`php artisan vendor:publish --provider=Encore\\h5upload\\h5uploadServiceProvider`
 
-### 3.在`app/Admin/bootstrap.php`添加代码
+### 4.在`app/Admin/bootstrap.php`添加代码
 
 ```
 Encore\Admin\Form::extend('h5upload', \Encore\h5upload\h5uploadFiled::class);

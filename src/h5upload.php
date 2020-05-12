@@ -8,13 +8,15 @@ class h5upload extends Extension
 {
     public $name = 'h5upload';
 
-    public $views = __DIR__.'/../resources/views';
+    public $views = __DIR__ . '/../resources/views';
 
-    public $assets = __DIR__.'/../resources/assets';
+    public $assets = __DIR__ . '/../resources/assets';
+
+    public $migrations = __DIR__ . '/../database/migrations';
 
     public $menu = [
         'title' => 'H5Upload',
-        'path'  => 'h5upload',
-        'icon'  => 'fa-gears',
+        'path' => 'h5upload',
+        'icon' => 'fa-gears',
     ];
 }

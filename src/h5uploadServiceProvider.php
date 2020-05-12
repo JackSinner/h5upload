@@ -24,17 +24,21 @@ class h5uploadServiceProvider extends ServiceProvider
             $this->loadViewsFrom($views, 'h5upload');
         }
 
+        if ($migrations = $extension->migrations()) {
+            $this->loadMigrationsFrom($migrations);
+        }
+
         if ($this->app->runningInConsole() && $assets = $extension->assets()) {
+            $resource = [
+                $assets => public_path('vendor/laravel-admin-ext/h5upload'),//静态文件
+                $assets . '/../config/' => config_path(''),//配置文件
+            ];
             $this->publishes(
-                [
-                    $assets => public_path('vendor/laravel-admin-ext/h5upload'),//静态文件
-                    $assets . '/config/' => config_path(''),//配置文件
-                ],
+                $resource,
                 'h5upload'
             );
         }
         Admin::booting(function () {
-            Admin::js('vendor/laravel-admin-ext/h5upload/js/lib/md5/md5.js?v=' . rand(1, 100));
             Admin::js('vendor/laravel-admin-ext/h5upload/js/h5upload.js?v=' . rand(1, 100));
             Admin::js('vendor/laravel-admin-ext/h5upload/js/ali-oss-sdk/aliyun-oss-sdk.min.js');
             Admin::css('vendor/laravel-admin-ext/h5upload/css/h5upload.css');
