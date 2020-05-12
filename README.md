@@ -42,6 +42,11 @@ $form->h5upload('url','视频')->setExpansion('video');
 请打开网站https://help.aliyun.com/document_detail/100624.html?spm=a2c4g.11186623.2.10.316879b0jDJxFq#concept-xzh-nzk-2gb根据提升一步一步添加配置
 ```
 
+### 文件管理页面
+```
+访问页面 admin/manage 查看已经上传的文件
+```
+
 ### tips
 ```
 如果有什么问题可以联系email:643145444@qq.com,作者会在时间充足的情况下更新扩展
