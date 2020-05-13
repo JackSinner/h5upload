@@ -3,7 +3,7 @@
 ### 1.使用composer安装monsteryuan/h5upload扩展
 
 ````
-composer require monsteryuan/h5upload 1.0.6.x-dev -vvvv
+composer require monsteryuan/h5upload 1.0.7.x-dev -vvvv
 ````
 
 ### 2.迁移数据库文件
@@ -50,6 +50,20 @@ $form->h5upload('url','h5upload')->setMultiple();
 ### 文件管理页面
 ```
 访问页面 admin/manage 查看已经上传的文件
+```
+
+### 需要在其他地方获取详细的资源链接
+```
+请添加服务提供者
+$this->app->bind(ThirdPartyUpload::class, function (Application $application) {
+    $type_dev = config('h5upload.type_dev');
+    $dev_map = [
+        'ali' => Aliyun::class
+    ];
+    return new $dev_map[$type_dev]($type_dev);
+});
+然后在其他地方使用获取
+app(ThirdPartyUpload::class)->getResourceUri([1,2,3]);
 ```
 
 ### tips
