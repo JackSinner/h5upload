@@ -7,10 +7,7 @@ use AlibabaCloud\{
     Client\Exception\ClientException,
     Client\Exception\ServerException
 };
-use Encore\h5upload\{
-    Interfaces\ThirdPartyUpload,
-    Abstracts\ThirdPartyUploadAbs
-};
+use Encore\h5upload\{Interfaces\ThirdPartyUpload, Abstracts\ThirdPartyUploadAbs, models\ResourceModel};
 
 class Aliyun extends ThirdPartyUploadAbs implements ThirdPartyUpload
 {
@@ -93,5 +90,21 @@ class Aliyun extends ThirdPartyUploadAbs implements ThirdPartyUpload
             }
         }
         return true;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    function getResourceUri(array $resource): array
+    {
+        $rus = [];
+        $resourceModel = ResourceModel::whereIn('id', $resource)->get();
+        $publicDomUrl = $this->config['public_domain'];
+        if ($resourceModel) {
+            foreach ($resourceModel as $key => $item) {
+                $rus[$item['id']] = $publicDomUrl . '/' . $item['key'];
+            }
+        }
+        return $rus;
     }
 }

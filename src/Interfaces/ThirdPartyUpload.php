@@ -20,4 +20,11 @@ interface ThirdPartyUpload
     function setErrorMessage(string $message): bool;
 
     function getErrorMessage(): string;
+
+    /**
+     * 获取资源url
+     * @param array $resource 资源id数组
+     * @return array 返回资源的url,数据格式是[id=>uri]
+     */
+    function getResourceUri(array $resource): array;
 }

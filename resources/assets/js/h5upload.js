@@ -77,7 +77,6 @@ function upload(_this) {
                 }
             }
         }).then((result) => {
-            $(_this).next().val(get_save_file(result.name));//保存的数据input
             upload_success = true;
             uploaded_flag = false;
             //上传完毕,添加数据到数据库
@@ -91,7 +90,10 @@ function upload(_this) {
                     path: window.location.pathname,
                     _token: $('meta[name="csrf-token"]').attr('content')
                 },
-                success: function (ret) {
+                success: (ret) => {
+                    if (ret.code === 200) {
+                        $(_this).next().val(get_save_file(ret.data['resource_id']));//保存的数据input
+                    }
                     if (ret.code !== 200) {
                         console.warn(ret.msg);
                     }
@@ -121,10 +123,10 @@ function get_save_file(rus_file_name) {
             save_file = JSON.parse(save_file);
         }
         save_file.push(rus_file_name);
-        save_file = JSON.stringify(save_file);
     } else {
-        save_file = rus_file_name;
+        save_file = [rus_file_name];
     }
+    save_file = JSON.stringify(save_file);
     console.log('要保存的文件名列表', save_file, '数据类型', typeof save_file);
     return save_file;
 }

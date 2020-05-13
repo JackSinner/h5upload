@@ -46,7 +46,9 @@ class h5uploadController extends Controller
             'size' => $request->post('size')
         ]);
         if ($resource->save()) {
-            $this->response(self::HTTP_CODE['OK'], '保存成功');
+            $this->response(self::HTTP_CODE['OK'], '保存成功', [
+                'resource_id' => $resource->id
+            ]);
         }
         $this->response(self::HTTP_CODE['ERROR'], '保存资源库失败了');
     }

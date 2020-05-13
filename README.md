@@ -3,7 +3,7 @@
 ### 1.使用composer安装monsteryuan/h5upload扩展
 
 ````
-composer require monsteryuan/h5upload 1.0.5.x-dev -vvvv
+composer require monsteryuan/h5upload 1.0.6.x-dev -vvvv
 ````
 
 ### 2.迁移数据库文件
