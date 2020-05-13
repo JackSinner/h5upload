@@ -71,7 +71,9 @@ app(ThirdPartyUpload::class)->getResourceUri([1,2,3]);
 如果有什么问题可以联系email:643145444@qq.com,作者会在时间充足的情况下更新扩展
 ```
 
+### 资源管理页面
 
+![avatar](mange.png)
 
 
 #有更好的点子
