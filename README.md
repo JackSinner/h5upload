@@ -47,6 +47,9 @@ $form->h5upload('url','h5upload')->setMultiple();
 请打开网站https://help.aliyun.com/document_detail/100624.html?spm=a2c4g.11186623.2.10.316879b0jDJxFq#concept-xzh-nzk-2gb根据提升一步一步添加配置
 ```
 
+### 设置阿里云oss的跨域
+
+
 ### 文件管理页面
 ```
 访问页面 admin/manage 查看已经上传的文件
