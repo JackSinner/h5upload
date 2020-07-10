@@ -47,6 +47,36 @@ $form->h5upload('url','h5upload')->setMultiple();
 请打开网站https://help.aliyun.com/document_detail/100624.html?spm=a2c4g.11186623.2.10.316879b0jDJxFq#concept-xzh-nzk-2gb根据提升一步一步添加配置
 ```
 
+```
+.env 配置文件模板
+
+
+ALIYUN_OSS_PUBLIC_DOMAIN=bucket里面的链接
+ALIYUN_OSS_PRIVATE_DOMAIN=bucket里面的链接
+ALIYUN_OSS_ACCESS_KEY=
+ALIYUN_OSS_ACCESS_SECRET=
+ALIYUN_OSS_ENDPOINT=oss节点
+ALIYUN_OSS_BUCKET=bucket名称
+ALIYUN_OSS_BUCKET_PRIVATE=dev-future-private
+ALIYUN_OSS_DOMAIN=bucket域名
+ALIYUN_STS_RAM=上面设置的ram账户
+ALIYUN_STS_ENDPOINT=sts节点
+ALIYUN_STS_REGION_ID=区域
+
+ALIYUN_OSS_PUBLIC_DOMAIN=https://dev-future-public.oss-cn-qingdao.aliyuncs.com
+ALIYUN_OSS_PRIVATE_DOMAIN=https://dev-future-private.oss-cn-qingdao.aliyuncs.com
+ALIYUN_OSS_ACCESS_KEY=
+ALIYUN_OSS_ACCESS_SECRET=
+ALIYUN_OSS_ENDPOINT=oss-cn-beijing.aliyuncs.com
+ALIYUN_OSS_BUCKET=
+ALIYUN_OSS_BUCKET_PRIVATE=dev-future-private
+ALIYUN_OSS_DOMAIN=http://image.dev.zgwjzg.com
+ALIYUN_STS_RAM=acs:ram::***:role/jack
+ALIYUN_STS_ENDPOINT=sts.cn-qingdao.aliyuncs.com
+ALIYUN_STS_REGION_ID=cn-beijing
+
+```
+
 ### 设置阿里云oss的跨域
 
 
