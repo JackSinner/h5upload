@@ -129,3 +129,9 @@ app/Admin/Extensions/laravel-admin-ext/h5upload
 ```
 composer require monsteryuan/h5upload -vvvv
 ```
+
+### tips 
+
+```
+isset 已有一些朋友发现的问题,并有些得到了解决.有什么问题请先查看isset
+```
