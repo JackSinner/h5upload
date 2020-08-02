@@ -1,7 +1,10 @@
 <?php
 return [
-    'type_dev' => 'ali',//上传驱动
-    'ali' => [
+    'type_dev' => env('H5UPLOAD_TYPE_DEV', 'location'),//上传驱动
+    'css' => [//如果觉得css不够漂亮,可以修改配置为自己的css文件
+        'vendor/laravel-admin-ext/h5upload/css/h5upload.css'
+    ],
+    'ali' => [//阿里云的配置
         // 端口设置
         'endpoint' => env('ALIYUN_OSS_ENDPOINT'),
         'bucket' => env('ALIYUN_OSS_BUCKET'),
@@ -29,11 +32,15 @@ return [
                 ],
                 "Effect": "Allow",
                 "Resource":[
-                    "acs:oss:*:*:'.env('ALIYUN_OSS_BUCKET').'/*"
+                    "acs:oss:*:*:' . env('ALIYUN_OSS_BUCKET') . '/*"
                 ]
             }
         ],
         "Version": "1"
         }'
+    ],
+    'location' => [//本地上传配置
+        'location_save_path' => storage_path('app/public/' . env('LOCATION_SAVE_PATH', 'h5upload/upload')),
+        'public_domain' => env('LOCATION_PUBLIC_DOMAIN', env('APP_URL'))
     ]
 ];

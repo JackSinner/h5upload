@@ -137,8 +137,24 @@ class h5uploadController extends Controller
             $resource = ResourceModel::where(['path_id' => $id])->get();
             return view('h5upload::info', [
                 'resource' => $resource,
-                'url' => config('h5upload.ali.public_domain')
+                'url' => config('h5upload.' . config('h5upload.type_dev') . '.public_domain')
             ]);
         }
+    }
+
+    function locationUpload(Request $request, ThirdPartyUpload $h5upload)
+    {
+        $files = $request->file('files');
+        $rus = [];
+        foreach ($files as $file) {
+            if (!($saveName = $h5upload->uploadByFile($file))) {
+                $this->response(self::HTTP_CODE['ERROR'], "文件{$file->getClientOriginalName()}上传失败");
+            }
+            $rus[] = [
+                'save_name' => $saveName,
+                'file_size' => $file->getSize()
+            ];
+        }
+        $this->response(self::HTTP_CODE['OK'], '上传成功', $rus);
     }
 }

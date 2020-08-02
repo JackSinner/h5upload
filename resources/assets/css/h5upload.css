@@ -1,16 +1,34 @@
 .schedule-container {
-  width: 100%;
-  background-color: #ddd;
-  box-sizing: border-box;
+    width: 100%;
+    background-color: #ddd;
+    box-sizing: border-box;
 }
 
 .skills {
-  text-align: right;
-  padding-right: 20px;
-  color: white;
+    text-align: right;
+    padding-right: 20px;
+    color: white;
 }
 
 .schedule {
-  background-color: #4CAF50;
-  transition: width 2s;
+    background-color: #4CAF50;
+    transition: width 2s;
+}
+
+.thumbs {
+    height: auto;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.thumbs .item {
+    height: 17rem;
+    width: 17rem;
+    display: inline-block;
+    margin: 10px;
+}
+
+.thumbs .item img {
+    width: 100%;
+    height: 100%;
 }

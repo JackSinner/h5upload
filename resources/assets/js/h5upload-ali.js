@@ -35,6 +35,23 @@ function check_file() {
 }
 
 /**
+ * 获取本地浏览图链接
+ * @param file
+ * @returns {null}
+ */
+function getObjectURL(file) {
+    var url = null;
+    if (window.createObjectURL != undefined) { // basic
+        url = window.createObjectURL(file);
+    } else if (window.URL != undefined) { // mozilla(firefox)
+        url = window.URL.createObjectURL(file);
+    } else if (window.webkitURL != undefined) { // webkit or chrome
+        url = window.webkitURL.createObjectURL(file);
+    }
+    return url;
+}
+
+/**
  * 上传文件
  * @param _this
  * @returns {boolean}
@@ -46,7 +63,6 @@ function upload(_this) {
     }
     is_multiple = $(_this).attr('multiple') == 'multiple' ? true : false;//是否是多文件上传
     for (let i = 0; i < $(_this)[0].files.length; i++) {
-        console.log('开始上传了', i);
         if ($(_this)[0].files[i] !== 'undefined') file_resource = $(_this)[0].files[i];
         if (!file_resource) {
             return false;
@@ -54,6 +70,7 @@ function upload(_this) {
         if (!check_file()) {
             return false;
         }
+        $(".thumbs").append(`<div class="item"><img onerror="javascript:this.src='/vendor/laravel-admin-ext/h5upload/img/file.png';" src="${getObjectURL($(_this)[0].files[i])}"></div>`);
         $(_this).prev().html(file_resource.name);
         uploaded_flag = true;
         if (!get_oss_info()) {
@@ -73,7 +90,7 @@ function upload(_this) {
         client.multipartUpload(oss_file_name, file_resource, {
             progress: (percentage, checkpoint, res) => {
                 if (percentage > 0) {
-                    $(_this).parent("div").next().find(".schedule").css('width', Math.floor(percentage * 100) + '%').html(Math.floor(percentage * 100) + '%');
+                    $(_this).parent("div").next().next().find(".schedule").css('width', Math.floor(percentage * 100) + '%').html(Math.floor(percentage * 100) + '%');
                 }
             }
         }).then((result) => {
@@ -103,7 +120,7 @@ function upload(_this) {
                 }
             });
         }).catch(function (err) {
-            $(_this).parent("div").next().find(".schedule").css('width', '0%').html('0%');
+            $(_this).parent("div").next().next().find(".schedule").css('width', '0%').html('0%');
             alert('上传到云储存失败,请重试!');
             upload_success = true;
             uploaded_flag = false;

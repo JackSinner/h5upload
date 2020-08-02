@@ -50,7 +50,9 @@ $form->h5upload('url','h5upload')->setMultiple();
 ```
 .env 配置文件模板
 
+H5UPLOAD_TYPE_DEV 使用的驱动,默认本地
 
+# 阿里云配置
 ALIYUN_OSS_PUBLIC_DOMAIN=bucket里面的链接
 ALIYUN_OSS_PRIVATE_DOMAIN=bucket里面的链接
 ALIYUN_OSS_ACCESS_KEY=
@@ -63,6 +65,7 @@ ALIYUN_STS_RAM=上面设置的ram账户
 ALIYUN_STS_ENDPOINT=sts节点
 ALIYUN_STS_REGION_ID=区域
 
+# 模板
 ALIYUN_OSS_PUBLIC_DOMAIN=https://dev-future-public.oss-cn-qingdao.aliyuncs.com
 ALIYUN_OSS_PRIVATE_DOMAIN=https://dev-future-private.oss-cn-qingdao.aliyuncs.com
 ALIYUN_OSS_ACCESS_KEY=
