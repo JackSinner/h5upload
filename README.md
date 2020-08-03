@@ -1,5 +1,7 @@
 # H5直传阿里云oss扩展
 
+### 更新扩展的话请把public/vendor/laravel-admin-ext/h5upload里面的h5upload和config/h5upload.php文件删除,在重新发布文件,后续会解决这个问题
+
 ### 1.使用composer安装monsteryuan/h5upload扩展
 
 ````
@@ -78,6 +80,19 @@ ALIYUN_STS_RAM=acs:ram::***:role/jack
 ALIYUN_STS_ENDPOINT=sts.cn-qingdao.aliyuncs.com
 ALIYUN_STS_REGION_ID=cn-beijing
 
+# 如果不想使用env来配置,可以直接修改config/h5upload.php来配置
+
+# 阿里云
+'endpoint' => '节点',
+'bucket' => 'bucket名称',
+'access_key' => '阿里云的oss的key,这个应该好找',
+'access_secret' =>'对应上面的密匙',
+'sts_ram' => 'sts的ram账户',
+'sts_endpoint' => 'sts的节点',
+'sts_region_id' => '地域id',
+'public_domain' => 'oss公开的域名',
+'domain' => '这个还是填一下,填为上面的public_domain',
+
 ```
 
 ### 设置阿里云oss的跨域
@@ -90,16 +105,11 @@ ALIYUN_STS_REGION_ID=cn-beijing
 
 ### 需要在其他地方获取详细的资源链接
 ```
-请添加服务提供者
-$this->app->bind(ThirdPartyUpload::class, function (Application $application) {
-    $type_dev = config('h5upload.type_dev');
-    $dev_map = [
-        'ali' => Aliyun::class
-    ];
-    return new $dev_map[$type_dev]($type_dev);
-});
-然后在其他地方使用获取
+从容器获得后使用
 app(ThirdPartyUpload::class)->getResourceUri([1,2,3]);
+使用助手函数使用,助手函数有提示
+h5upload()->getResourceUri([1,2,3]); or getResourceByIds([1,2,3]);
+未来考虑要不要增加门面
 ```
 
 ### tips

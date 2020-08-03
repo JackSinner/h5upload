@@ -2,6 +2,8 @@
 
 namespace Encore\h5upload\Abstracts;
 
+use Encore\h5upload\models\ResourceModel;
+
 abstract class ThirdPartyUploadAbs
 {
     protected $error_message = '系统错误';
@@ -28,5 +30,21 @@ abstract class ThirdPartyUploadAbs
     function getErrorMessage(): string
     {
         return $this->error_message;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    function getResourceUri(array $resource): array
+    {
+        $rus = [];
+        $resourceModel = ResourceModel::whereIn('id', $resource)->get();
+        $publicDomUrl = $this->config['public_domain'];
+        if ($resourceModel) {
+            foreach ($resourceModel as $key => $item) {
+                $rus[$item['id']] = $publicDomUrl . '/' . $item['key'];
+            }
+        }
+        return $rus;
     }
 }

@@ -22,7 +22,7 @@ interface ThirdPartyUpload
     function getErrorMessage(): string;
 
     /**
-     * 获取资源url
+     * 获取资源url,集成的类已实现,如果需要另外实现,请重写
      * @param array $resource 资源id数组
      * @return array 返回资源的url,数据格式是[id=>uri]
      */

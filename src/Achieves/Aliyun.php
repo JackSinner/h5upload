@@ -91,20 +91,4 @@ class Aliyun extends ThirdPartyUploadAbs implements ThirdPartyUpload
         }
         return true;
     }
-
-    /**
-     * @inheritDoc
-     */
-    function getResourceUri(array $resource): array
-    {
-        $rus = [];
-        $resourceModel = ResourceModel::whereIn('id', $resource)->get();
-        $publicDomUrl = $this->config['public_domain'];
-        if ($resourceModel) {
-            foreach ($resourceModel as $key => $item) {
-                $rus[$item['id']] = $publicDomUrl . '/' . $item['key'];
-            }
-        }
-        return $rus;
-    }
 }

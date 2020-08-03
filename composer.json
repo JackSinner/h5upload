@@ -26,7 +26,10 @@
     "autoload": {
         "psr-4": {
             "Encore\\h5upload\\": "src/"
-        }
+        },
+        "files": [
+            "src/helps.php"
+        ]
     },
     "extra": {
         "laravel": {

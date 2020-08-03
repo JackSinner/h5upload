@@ -20,11 +20,6 @@ class Location extends ThirdPartyUploadAbs implements ThirdPartyUpload
 
     }
 
-    function getResourceUri(array $resource): array
-    {
-        return [];
-    }
-
     /**
      * 上传文件到本地
      * @param UploadedFile $file 资源文件
