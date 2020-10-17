@@ -47,7 +47,8 @@ class h5uploadController extends Controller
         ]);
         if ($resource->save()) {
             $this->response(self::HTTP_CODE['OK'], '保存成功', [
-                'resource_id' => $resource->id
+                'resource_id' => $resource->id,
+                'resource_uri' => config('h5upload.' . config('h5upload.type_dev') . '.public_domain') . '/' . $resource->key
             ]);
         }
         $this->response(self::HTTP_CODE['ERROR'], '保存资源库失败了');

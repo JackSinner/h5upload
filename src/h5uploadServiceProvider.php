@@ -48,6 +48,8 @@ class h5uploadServiceProvider extends ServiceProvider
             } else if ($type == 'location') {
                 Admin::js('vendor/laravel-admin-ext/h5upload/js/h5upload-location.js?v=' . rand(1, 100));
             }
+            Admin::js('vendor/laravel-admin-ext/h5upload/js/image-move.js?v=' . rand(1, 100));
+            Admin::js('vendor/laravel-admin-ext/h5upload/js/Sortable.min.js?v=' . rand(1, 100));
             //配置文件读取css
             $css = config('h5upload.css', ['vendor/laravel-admin-ext/h5upload/css/h5upload.css']);
             foreach ($css as $load) {

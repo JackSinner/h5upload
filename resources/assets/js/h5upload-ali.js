@@ -35,23 +35,6 @@ function check_file() {
 }
 
 /**
- * 获取本地浏览图链接
- * @param file
- * @returns {null}
- */
-function getObjectURL(file) {
-    var url = null;
-    if (window.createObjectURL != undefined) { // basic
-        url = window.createObjectURL(file);
-    } else if (window.URL != undefined) { // mozilla(firefox)
-        url = window.URL.createObjectURL(file);
-    } else if (window.webkitURL != undefined) { // webkit or chrome
-        url = window.webkitURL.createObjectURL(file);
-    }
-    return url;
-}
-
-/**
  * 上传文件
  * @param _this
  * @returns {boolean}
@@ -70,7 +53,6 @@ function upload(_this) {
         if (!check_file()) {
             return false;
         }
-        $(".thumbs").append(`<div class="item"><img onerror="javascript:this.src='/vendor/laravel-admin-ext/h5upload/img/file.png';" src="${getObjectURL($(_this)[0].files[i])}"></div>`);
         $(_this).prev().html(file_resource.name);
         uploaded_flag = true;
         if (!get_oss_info()) {
@@ -110,6 +92,9 @@ function upload(_this) {
                 success: (ret) => {
                     if (ret.code === 200) {
                         $(_this).next().val(get_save_file(ret.data['resource_id']));//保存的数据input
+                        $(".thumbs").append(`<li class="item" data-resource-id="${ret.data['resource_id']}" title="按住鼠标拖动顺序"><img onerror="javascript:this.src='/vendor/laravel-admin-ext/h5upload/img/file.png';" src="${ret.data['resource_uri']}"><span>${ret.data['resource_id']}</span></li>`);
+                        //添加上传完毕图片鼠标移动事件
+                        bindMove();
                     }
                     if (ret.code !== 200) {
                         console.warn(ret.msg);
@@ -135,6 +120,8 @@ function upload(_this) {
  * @returns {*}
  */
 function get_save_file(rus_file_name) {
+    //先获取隐藏的input的值
+    save_file = $("#h5upload-thumbs").prev().find("input").next().val();
     if (is_multiple) {
         if (save_file.length > 0) {
             save_file = JSON.parse(save_file);

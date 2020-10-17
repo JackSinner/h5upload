@@ -9,9 +9,15 @@
             <input id="file_name" name="{{$name}}" style="display: none;" value="{{ old($column, $value) }}"/>
         </div>
         <!--缩略图开始-->
-        <div class="thumbs">
-
-        </div>
+        <ol id="h5upload-thumbs" class="thumbs">
+            @foreach($h5resource as $id=>$resource)
+                <li data-resource-id="{{$id}}" title="按住鼠标拖动顺序" class="item">
+                    <img onerror="javascript:this.src='/vendor/laravel-admin-ext/h5upload/img/file.png';"
+                         src="{{$resource}}"/>
+                    <span>{{$id}}</span>
+                </li>
+            @endforeach
+        </ol>
         <!--缩略图结束-->
         <!--进度开始-->
         <div class="schedule-container">
@@ -21,3 +27,9 @@
         @include('admin::form.help-block')
     </div>
 </div>
+
+<script>
+    $(function () {
+        bindMove();
+    });
+</script>

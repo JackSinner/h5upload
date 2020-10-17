@@ -109,7 +109,6 @@ ALIYUN_STS_REGION_ID=cn-beijing
 app(ThirdPartyUpload::class)->getResourceUri([1,2,3]);
 使用助手函数使用,助手函数有提示
 h5upload()->getResourceUri([1,2,3]); or getResourceByIds([1,2,3]);
-未来考虑要不要增加门面
 ```
 
 ### tips
@@ -131,7 +130,7 @@ app/Admin/Extensions/laravel-admin-ext/h5upload
 ### 2.修改项目composer.json文件的repositories 加入
 
 ````
- "h5upload": {
+ "monsteryuan/h5upload": {
    "type": "path",
    "url": "app/Admin/Extensions/laravel-admin-ext/h5upload"
  }

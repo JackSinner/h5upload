@@ -38,11 +38,15 @@ abstract class ThirdPartyUploadAbs
     function getResourceUri(array $resource): array
     {
         $rus = [];
-        $resourceModel = ResourceModel::whereIn('id', $resource)->get();
+        $resourceModel = ResourceModel::whereIn('id', $resource)->get()->keyBy(function ($value, $key) {
+            return $value->id;
+        });
         $publicDomUrl = $this->config['public_domain'];
         if ($resourceModel) {
-            foreach ($resourceModel as $key => $item) {
-                $rus[$item['id']] = $publicDomUrl . '/' . $item['key'];
+            foreach ($resource as $item) {
+                if (isset($resourceModel[$item])) {
+                    $rus[$item] = $publicDomUrl . '/' . $resourceModel[$item]['key'];
+                }
             }
         }
         return $rus;

@@ -19,16 +19,23 @@
     height: auto;
     width: 100%;
     margin-bottom: 1rem;
+    padding: 0;
+    list-style: none;
+    text-align: center;
 }
 
 .thumbs .item {
-    height: 17rem;
-    width: 17rem;
-    display: inline-block;
+    height: 50%;
+    width: 50%;
     margin: 10px;
+    cursor: pointer;
 }
 
 .thumbs .item img {
     width: 100%;
     height: 100%;
+}
+
+.move {
+    border: 1px solid red;
 }
