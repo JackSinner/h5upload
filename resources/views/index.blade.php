@@ -4,7 +4,8 @@
         @include('admin::form.error')
         <div class="input-group">
             <button type="button" onclick="file_click(this)" class="btn btn-default"
-                    id="upload_button">选择文件上传</button>
+                    id="upload_button">选择文件上传
+            </button>
             <input onchange="upload(this)" id="file" {{$attributes}} style="opacity: 0;" type="file"/>
             <input id="file_name" name="{{$name}}" style="display: none;" value="{{ old($column, $value) }}"/>
         </div>
@@ -14,7 +15,7 @@
                 <li data-resource-id="{{$id}}" title="按住鼠标拖动顺序" class="item">
                     <img onerror="javascript:this.src='/vendor/laravel-admin-ext/h5upload/img/file.png';"
                          src="{{$resource}}"/>
-                    <span>{{$id}}</span>
+                    <div class="remove" title="点击删除图片" onclick="removeImage('{{$id}}',this)"></div>
                 </li>
             @endforeach
         </ol>

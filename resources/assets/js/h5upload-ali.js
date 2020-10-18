@@ -46,6 +46,7 @@ function upload(_this) {
     }
     is_multiple = $(_this).attr('multiple') == 'multiple' ? true : false;//是否是多文件上传
     for (let i = 0; i < $(_this)[0].files.length; i++) {
+        console.log($(_this)[0].files[i]);
         if ($(_this)[0].files[i] !== 'undefined') file_resource = $(_this)[0].files[i];
         if (!file_resource) {
             return false;
@@ -68,7 +69,8 @@ function upload(_this) {
             endpoint: oss_info.oss.endpoint,
             bucket: oss_info.oss.bucket
         });
-        var oss_file_name = generate_upload_name();
+        let oss_file_name = generate_upload_name();
+        console.log(oss_file_name)
         client.multipartUpload(oss_file_name, file_resource, {
             progress: (percentage, checkpoint, res) => {
                 if (percentage > 0) {
@@ -91,11 +93,11 @@ function upload(_this) {
                 },
                 success: (ret) => {
                     if (ret.code === 200) {
-                        $(_this).next().val(get_save_file(ret.data['resource_id']));//保存的数据input
-                        if(is_multiple){
-                            $(".thumbs").append(`<li class="item" data-resource-id="${ret.data['resource_id']}" title="按住鼠标拖动顺序"><img onerror="javascript:this.src='/vendor/laravel-admin-ext/h5upload/img/file.png';" src="${ret.data['resource_uri']}"><span>${ret.data['resource_id']}</span></li>`);
-                        }else{
-                            $(".thumbs").html(`<li class="item" data-resource-id="${ret.data['resource_id']}" title="按住鼠标拖动顺序"><img onerror="javascript:this.src='/vendor/laravel-admin-ext/h5upload/img/file.png';" src="${ret.data['resource_uri']}"><span>${ret.data['resource_id']}</span></li>`);
+                        $("#h5upload-thumbs").prev().find("input").next().val(get_save_file(ret.data['resource_id']));//保存的数据input
+                        if (is_multiple) {
+                            $(".thumbs").append(`<li class="item" data-resource-id="${ret.data['resource_id']}" title="按住鼠标拖动顺序"><img onerror="javascript:this.src='/vendor/laravel-admin-ext/h5upload/img/file.png';" src="${ret.data['resource_uri']}"><div class="remove" title="点击删除图片" onclick="removeImage('${ret.data['resource_id']}',this)"></div></li>`);
+                        } else {
+                            $(".thumbs").html(`<li class="item" data-resource-id="${ret.data['resource_id']}" title="按住鼠标拖动顺序"><img onerror="javascript:this.src='/vendor/laravel-admin-ext/h5upload/img/file.png';" src="${ret.data['resource_uri']}"><div class="remove" title="点击删除图片" onclick="removeImage('${ret.data['resource_id']}',this)"></div></li>`);
                         }
                         //添加上传完毕图片鼠标移动事件
                         bindMove();

@@ -13,3 +13,11 @@ function bindMove() {
         }
     });
 }
+
+function removeImage(index, _this) {
+    let arr = $("#file_name").val();
+    arr = JSON.parse(arr);
+    arr.splice(arr.indexOf(index), 1)
+    $("#file_name").val(JSON.stringify(arr));
+    $(_this).parent('li').remove();
+}
