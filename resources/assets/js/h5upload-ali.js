@@ -92,7 +92,11 @@ function upload(_this) {
                 success: (ret) => {
                     if (ret.code === 200) {
                         $(_this).next().val(get_save_file(ret.data['resource_id']));//保存的数据input
-                        $(".thumbs").append(`<li class="item" data-resource-id="${ret.data['resource_id']}" title="按住鼠标拖动顺序"><img onerror="javascript:this.src='/vendor/laravel-admin-ext/h5upload/img/file.png';" src="${ret.data['resource_uri']}"><span>${ret.data['resource_id']}</span></li>`);
+                        if(is_multiple){
+                            $(".thumbs").append(`<li class="item" data-resource-id="${ret.data['resource_id']}" title="按住鼠标拖动顺序"><img onerror="javascript:this.src='/vendor/laravel-admin-ext/h5upload/img/file.png';" src="${ret.data['resource_uri']}"><span>${ret.data['resource_id']}</span></li>`);
+                        }else{
+                            $(".thumbs").html(`<li class="item" data-resource-id="${ret.data['resource_id']}" title="按住鼠标拖动顺序"><img onerror="javascript:this.src='/vendor/laravel-admin-ext/h5upload/img/file.png';" src="${ret.data['resource_uri']}"><span>${ret.data['resource_id']}</span></li>`);
+                        }
                         //添加上传完毕图片鼠标移动事件
                         bindMove();
                     }
@@ -121,8 +125,8 @@ function upload(_this) {
  */
 function get_save_file(rus_file_name) {
     //先获取隐藏的input的值
-    save_file = $("#h5upload-thumbs").prev().find("input").next().val();
     if (is_multiple) {
+        save_file = $("#h5upload-thumbs").prev().find("input").next().val();
         if (save_file.length > 0) {
             save_file = JSON.parse(save_file);
         }

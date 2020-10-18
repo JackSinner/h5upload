@@ -4,7 +4,7 @@
         @include('admin::form.error')
         <div class="input-group">
             <button type="button" onclick="file_click(this)" class="btn btn-default"
-                    id="upload_button">{{ old($column, $value)??'请选择文件上传' }}</button>
+                    id="upload_button">选择文件上传</button>
             <input onchange="upload(this)" id="file" {{$attributes}} style="opacity: 0;" type="file"/>
             <input id="file_name" name="{{$name}}" style="display: none;" value="{{ old($column, $value) }}"/>
         </div>
